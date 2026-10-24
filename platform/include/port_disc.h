@@ -23,7 +23,7 @@ namespace PortDisc {
 
 // The releases the port knows. The game code is always 1.00's; the other
 // discs only supply their data.
-enum class Version { Unknown, Usa100, Usa101, Usa102, Pal };
+enum class Version { Unknown, Usa100, Usa101, Usa102, Pal, Japan };
 
 // Game id (six characters, not terminated), disc number and revision byte.
 Version Identify(const char* id6, unsigned diskNumber, unsigned revision);
@@ -31,7 +31,7 @@ Version Identify(const char* id6, unsigned diskNumber, unsigned revision);
 Version Current();
 // "USA 1.00", "PAL", ...
 const char* Name(Version version);
-// Whether the port accepts this disc: USA 1.00, 1.01, 1.02 and PAL.
+// Whether the port accepts this disc: USA 1.00, 1.01, 1.02, PAL and Japan.
 bool IsAccepted(Version version);
 
 } // namespace PortDisc

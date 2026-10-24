@@ -1260,7 +1260,17 @@ int main(int argc, char** argv) {
                    PortDisc::Current() == PortDisc::Version::Pal ? " (experimental support)" : "");
     // Saves are the disc's region's (a PAL save's worlds are laid out
     // differently): its game code and Dolphin's card for that region.
-    PortGci::SetGameCode(PortDisc::Current() == PortDisc::Version::Pal ? "GM8P" : "GM8E");
+    switch (PortDisc::Current()) {
+    case PortDisc::Version::Pal:
+      PortGci::SetGameCode("GM8P");
+      break;
+    case PortDisc::Version::Japan:
+      PortGci::SetGameCode("GM8J");
+      break;
+    default:
+      PortGci::SetGameCode("GM8E");
+      break;
+    }
     s_mountedDisc = discImage;
     aurora_dvd_set_read_error_callback(NoteDiscReadFailure);
     // A Remastered import finished in the last session becomes the mod now,

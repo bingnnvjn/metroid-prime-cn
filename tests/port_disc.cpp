@@ -48,11 +48,13 @@ int main() {
   REQUIRE(PortDisc::Identify("GM8E01", 0, 2) == Version::Usa102);
   REQUIRE(PortDisc::Identify("GM8E01", 0, 3) == Version::Unknown);
   REQUIRE(PortDisc::Identify("GM8P01", 0, 0) == Version::Pal);
-  REQUIRE(PortDisc::Identify("GM8J01", 0, 0) == Version::Unknown);
+  REQUIRE(PortDisc::Identify("GM8J01", 0, 0) == Version::Japan);
+  REQUIRE(PortDisc::Identify("GM8J01", 0, 1) == Version::Unknown);
   REQUIRE(PortDisc::Identify("GM8E01", 1, 0) == Version::Unknown);
   REQUIRE(PortDisc::Current() == Version::Unknown);
   REQUIRE(PortDisc::IsAccepted(Version::Usa100) && PortDisc::IsAccepted(Version::Usa101) &&
-          PortDisc::IsAccepted(Version::Usa102) && PortDisc::IsAccepted(Version::Pal));
+          PortDisc::IsAccepted(Version::Usa102) && PortDisc::IsAccepted(Version::Pal) &&
+          PortDisc::IsAccepted(Version::Japan));
   REQUIRE(!PortDisc::IsAccepted(Version::Unknown));
   REQUIRE(PortDisc::Identify("GM8E01", 0, 1) == Version::Usa101);
   dolSize = 4;

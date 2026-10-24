@@ -136,6 +136,8 @@ Version Identify(const char* id6, unsigned diskNumber, unsigned revision) {
   }
   if (std::memcmp(id6, "GM8P01", 6) == 0 && revision == 0)
     return Version::Pal;
+  if (std::memcmp(id6, "GM8J01", 6) == 0 && revision == 0)
+    return Version::Japan;
   return Version::Unknown;
 }
 
@@ -155,6 +157,7 @@ const char* Name(Version version) {
   case Version::Usa101: return "USA 1.01";
   case Version::Usa102: return "USA 1.02";
   case Version::Pal: return "PAL";
+  case Version::Japan: return "Japan";
   case Version::Unknown: break;
   }
   return "unknown";
@@ -162,7 +165,7 @@ const char* Name(Version version) {
 
 bool IsAccepted(Version version) {
   return version == Version::Usa100 || version == Version::Usa101 || version == Version::Usa102 ||
-         version == Version::Pal;
+         version == Version::Pal || version == Version::Japan;
 }
 
 } // namespace PortDisc

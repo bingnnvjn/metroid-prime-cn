@@ -444,9 +444,15 @@ void CStringTable::PortRefreshWatched() {
 const CFactoryFnReturn FStringTableFactory(const SObjectTag& tag, CInputStream& in,
                                      const CVParamTransfer& xfer) {
 #ifdef TARGET_PC
+  // A Japanese disc's tables carry the Japanese text in JAPN; make that the
+  // native section instead of ENGL, or the discs' own language never shows.
+  if (PortDisc::Current() == PortDisc::Version::Japan) {
+    mCurrentLanguage = 'JAPN';
+  }
   CStringTable* table = rs_new CStringTable(in);
   const uint id = tag.GetId();
-  if (PortDisc::Current() == PortDisc::Version::Pal) {
+  if (PortDisc::Current() == PortDisc::Version::Pal ||
+      PortDisc::Current() == PortDisc::Version::Japan) {
     const rstl::single_ptr< CStringTable > slideShow(id == 0x0552A456 ? PortLoadDiscSlideShow()
                                                                        : rstl::single_ptr< CStringTable >());
     PortRemapPalTable(id, *table, slideShow.get());
