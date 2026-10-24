@@ -1,3 +1,31 @@
+# Metroid Prime · 安卓中文化分支
+
+> 英文摘要见文末。
+
+本仓是 [Odrannnn/MetroidPrimePort](https://github.com/Odrannnn/MetroidPrimePort) 的中文分支。目标只有一个：让《Metroid Prime》在安卓手机上以中文可玩。
+
+**现状**：早期阶段。代码跟上游 `port` 分支 HEAD 走，本仓还没有功能性改动。已完成的是取证——字体格式、文本段结构、镜像布局都已核对。进度与待办见 [TASKS.md](TASKS.md)。
+
+**怎么构建**：不需要本地工具链。在 Actions 页面手动触发 `android` workflow（或 `gh workflow run android -r port`），跑完在 artifact 里取 APK。
+
+**怎么装**：arm64 设备，Android 9 以上。装之前注意一件事——本仓的签名与上游发布包不同，Android 会当成另一个应用。覆盖安装必须先卸载，而**卸载会删存档**。
+
+**边界**：需要自备正版游戏盘。本仓不附带任何游戏数据，不打包贴图、字库、文本表；中文文本在运行时从用户自备的盘读取。
+
+**许可**：平台层 MIT；`src/` 与 `include/` 是反编译代码，版权属任天堂。原样沿用上游的 `LICENSE` 与 `NOTICE`，未作修改。
+
+## English abstract
+
+A Chinese-localization branch of [MetroidPrimePort](https://github.com/Odrannnn/MetroidPrimePort). Goal: a playable Chinese build of *Metroid Prime* on Android.
+
+The tree tracks upstream `port` HEAD and carries no functional changes yet; what exists is groundwork, tracked in `TASKS.md`. Builds run in GitHub Actions — trigger the `android` workflow and take the APK from the artifact. The APK is arm64-only and signed with a key that differs from the upstream one, so installing it over an upstream build requires an uninstall first, which deletes saves. No game data is shipped; bring your own disc image. The MIT grant covers the platform layer only; `src/` and `include/` remain Nintendo's, as stated in `NOTICE`.
+
+---
+
+以下为上游 README，原样保留。
+
+---
+
 # Metroid Prime — native port
 
 A native build of **Metroid Prime** for Linux, Windows and Android (plus an

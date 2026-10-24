@@ -52,13 +52,11 @@ jobs:
           printf '%s' "$KEYSTORE_BASE64" | base64 -d > "$MP_APK_KEYSTORE"
           bash tools/android_apk.sh --strict-signing :app:assembleRelease
           rm -f "$MP_APK_KEYSTORE"
-      # A different signer would make Android treat the APK as another app.
-      - name: Check the signer
+      # 本仓用自己的签名密钥，所以不再比对上游证书摘要。
+      - name: Package the APK
         run: |
           apk=android/app/build/outputs/apk/release/app-release.apk
-          digest=$("$ANDROID_HOME/build-tools/34.0.0/apksigner" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
-          echo "signer: $digest"
-          test "$digest" = 87ea78ebb35f3756eeb341593df49d99cb59db129bf73ddfaa04c1f8213e2b16
+          "$ANDROID_HOME/build-tools/34.0.0/apksigner" verify --print-certs "$apk"
           version=$(sed -n 's/.*versionName "\(.*\)".*/\1/p' android/app/build.gradle)
           mkdir dist
           cp "$apk" "dist/metroid-prime-port-$version-${GITHUB_SHA::9}.apk"
